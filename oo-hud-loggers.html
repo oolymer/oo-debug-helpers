@@ -1,0 +1,57 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../paper-styles/paper-styles-classes.html">
+<link rel="import" href="../paper-styles/paper-styles.html">
+
+<dom-module id="oo-hud-loggers">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      #content {
+        background: white;
+      }
+    </style>
+
+    <div id="content">
+      loggers
+    </div>
+  </template>
+
+  <script>
+    class OoHudLoggers extends Polymer.Element {
+
+      static get is() {
+        return "oo-hud-loggers"
+      }
+
+      static get properties() {
+        return {
+        }
+      }
+
+      ready() {
+        super.ready()
+        this._log("ready")
+      }
+
+      connectedCallback() {
+        super.connectedCallback()
+        this._log("connected", this.__data)
+      }
+
+      _timeout(delayMillis) {
+        return Polymer.Async.timeOut.after(delayMillis)
+      }
+
+      _log(...messages) {
+        console.log(`[${this.localName}]`, ...messages)
+      }
+    }
+
+    window.customElements.define(OoHudLoggers.is, OoHudLoggers)
+  </script>
+</dom-module>

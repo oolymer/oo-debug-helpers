@@ -10,6 +10,8 @@
 <link rel="import" href="../paper-tabs/paper-tab.html">
 <link rel="import" href="../paper-tabs/paper-tabs.html">
 
+<link rel="import" href="./oo-hud-loggers.html">
+
 <dom-module id="oo-hud">
   <template>
     <style>
@@ -41,6 +43,11 @@
 
       paper-tab {
         --paper-tab-ink: var(--paper-light-blue-500);
+        text-transform: uppercase;
+      }
+
+      paper-tab[disabled] {
+        color: gray;
       }
     </style>
 
@@ -74,17 +81,17 @@
 
     <div id="content">
       <paper-tabs id="tabs" selected="{{selectedPage}}" fit-container>
-        <paper-tab>app pages</paper-tab>
-        <paper-tab>data controllers</paper-tab>
-        <paper-tab>element loggers</paper-tab>
-        <paper-tab>worker queues</paper-tab>
+        <paper-tab disabled>pages</paper-tab>
+        <paper-tab disabled>controllers</paper-tab>
+        <paper-tab>loggers</paper-tab>
+        <paper-tab disabled>workers</paper-tab>
       </paper-tabs>
 
       <iron-pages id="pages" selected="[[selectedPage]]">
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div>
+        <div>pages</div>
+        <div>controllers</div>
+        <oo-hud-loggers></oo-hud-loggers>
+        <div>workers</div>
       </iron-pages>
     </div>
   </template>
@@ -101,7 +108,7 @@
         return {
           selectedPage: {
             type: Number,
-            value: () => 0
+            value: () => 2
           },
 
           keysTarget: {
