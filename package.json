@@ -20,7 +20,7 @@
   "scripts": {
     "start": "npm run dev",
     "test": "npm run test:headless",
-    "build": "./node_modules/.bin/npm-run-all --serial build:polymer build:polymer:docs",
+    "build": "./node_modules/.bin/npm-run-all --serial build:polymer",
     "build:polymer": "./node_modules/.bin/polymer build",
     "build:polymer:docs": "./node_modules/.bin/polymer analyze > analysis.json",
     "dev": "./node_modules/.bin/npm-run-all --parallel serve dev:serve-watch",
