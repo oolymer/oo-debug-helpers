@@ -12,7 +12,8 @@
     }
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^2.6.0"
+    "polymer": "Polymer/polymer#^2.6.0",
+    "oo-logger": "oolymer/oo-logger#^0.1.0"
   },
   "devDependencies": {
     "font-roboto": "PolymerElements/font-roboto-local#^1.0.0",
@@ -26,7 +27,7 @@
     "paper-tabs": "PolymerElements/paper-tabs#^2.0.0",
     "oo-test-helpers": "oolymer/oo-test-helpers#^0.1.0",
     "web-component-tester": "Polymer/web-component-tester#6.5.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#1.1.0"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#1.2.0"
   },
   "resolutions": {
     "polymer": "2.6.0"

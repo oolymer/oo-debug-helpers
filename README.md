@@ -30,7 +30,7 @@ Add `oo-debug-helpers` as dependency to your `bower.json`.
 Add `oo-hud.html` to your `*.html`.
 
 ~~~html
-<link rel="import" href="../../iron-debug-helpers/oo-hud.html">
+<link rel="import" href="../../oo-debug-helpers/oo-hud.html">
 ~~~
 
 Use `<oo-hud>` element.
@@ -65,5 +65,5 @@ $ npm test
 Update the change log.
 
 ~~~
-$ github_changelog_generator oolymer/oo-debug-helpers --simple-list --no-issues --usernames-as-github-logins --output CHANGES.md --future-release v0.1.0
+$ github_changelog_generator oolymer/oo-debug-helpers --simple-list --no-issues --output CHANGES.md --header-label "# CHANGES" --future-release v0.1.0
 ~~~
