@@ -11,6 +11,7 @@
 <!-- TOC depthFrom:2 -->
 
 - [Usage](#usage)
+- [Contributing](#contributing)
 
 <!-- /TOC -->
 
@@ -24,4 +25,45 @@ Add `oo-debug-helpers` as dependency to your `bower.json`.
     "oo-debug-helpers": "oolymer/oo-debug-helpers#0.1.0"
   }
 }
+~~~
+
+Add `oo-hud.html` to your `*.html`.
+
+~~~html
+<link rel="import" href="../../iron-debug-helpers/oo-hud.html">
+~~~
+
+Use `<oo-hud>` element.
+
+~~~html
+<body>
+  <oo-hud></oo-hud>
+</body>
+~~~
+
+## Contributing
+
+Install `npm` and `bower` dependencies.
+
+~~~
+$ npm install
+$ npm run install:bower
+~~~
+
+Start the development server and open the default browser.
+
+~~~
+$ npm start
+~~~
+
+Run test suites in headless browsers.
+
+~~~
+$ npm test
+~~~
+
+Update the change log.
+
+~~~
+$ github_changelog_generator oolymer/oo-debug-helpers --simple-list --no-issues --usernames-as-github-logins --output CHANGES.md --future-release v0.1.0
 ~~~
