@@ -16,6 +16,9 @@
 <link rel="import" href="../../iron-a11y-keys/iron-a11y-keys.html">
 <link rel="import" href="../../iron-fit-behavior/iron-fit-behavior.html">
 <link rel="import" href="../../iron-overlay-behavior/iron-overlay-behavior.html">
+<link rel="import" href="../../iron-pages/iron-pages.html">
+<link rel="import" href="../../paper-tabs/paper-tabs.html">
+<link rel="import" href="../../paper-tabs/paper-tab.html">
 
 <body unresolved>
   <custom-style>
@@ -48,23 +51,55 @@
       :host {
         display: block;
         background: white;
-        @apply --shadow-elevation-2dp;
         width: 66%;
         height: 33%;
+        min-height: 400px;
+        opacity: 0.66;
         transition: opacity ease-in 0.2s;
+        @apply --shadow-elevation-4dp;
+        overflow: hidden;
       }
 
       #content {
+        padding: 0;
+      }
+
+      #pages {
         padding: 20px;
-        opacity: 0;
+      }
+
+      paper-tabs {
+        margin: 0 -16px;
+        --paper-tabs-selection-bar-color: var(--paper-light-blue-500);
+        border-bottom: 1px solid var(--divider-color, #000);
+      }
+
+      paper-tab {
+        --paper-tab-ink: var(--paper-light-blue-500);
       }
     </style>
 
-    <iron-a11y-keys id="a11y" target="[[keysTarget]]" keys="a"
-                on-keys-pressed="_onKey"></iron-a11y-keys>
+    <iron-a11y-keys
+      id="keys"
+      target="[[keysTarget]]"
+      keys="a"
+      on-keys-pressed="_onKey">
+    </iron-a11y-keys>
 
     <div id="content">
-      <p>content</p>
+      <paper-tabs id="tabs" selected="{{selectedPage}}" fit-container>
+        <paper-tab>app pages</paper-tab>
+        <paper-tab>data controllers</paper-tab>
+        <paper-tab>element loggers</paper-tab>
+        <paper-tab>worker queues</paper-tab>
+      </paper-tabs>
+
+      <iron-pages id="pages" selected="[[selectedPage]]">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+      </iron-pages>
     </div>
   </template>
 
@@ -78,6 +113,11 @@
 
       static get properties() {
         return {
+          selectedPage: {
+            type: Number,
+            value: () => 0
+          },
+
           keysTarget: {
             type: Object,
             value: () => window
