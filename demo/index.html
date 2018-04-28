@@ -3,6 +3,7 @@
 <title>demo</title>
 
 <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+<link rel="import" href="../../polymer/polymer-element.html">
 <link rel="import" href="../../shadycss/apply-shim.html">
 <link rel="import" href="../../polymer/lib/elements/custom-style.html">
 <link rel="import" href="../../polymer/lib/utils/async.html">
@@ -11,6 +12,9 @@
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../paper-styles/paper-styles.html">
 <link rel="import" href="../../paper-styles/paper-styles-classes.html">
+
+<link rel="import" href="../../iron-fit-behavior/iron-fit-behavior.html">
+<link rel="import" href="../../iron-overlay-behavior/iron-overlay-behavior.html">
 
 <body unresolved>
   <custom-style>
@@ -34,7 +38,7 @@
     </style>
   </custom-style>
 
-  <demo-element></demo-element>
+  <demo-element>demo-element not upgraded</demo-element>
 </body>
 
 <dom-module id="demo-element">
@@ -42,42 +46,63 @@
     <style>
       :host {
         display: block;
+        background: white;
+        @apply --shadow-elevation-2dp;
+        width: 66%;
+        height: 33%;
+        opacity: 0.66;
       }
 
       #content {
-        margin: 20px;
+        padding: 20px;
       }
     </style>
 
     <div id="content">
-      <p>demo element</p>
+      <p>content</p>
     </div>
   </template>
 
   <script>
-    window.addEventListener("WebComponentsReady", () => {
-      class DemoElement extends Polymer.Element {
+    class DemoElement extends Polymer.mixinBehaviors(
+      [Polymer.IronOverlayBehavior], Polymer.Element) {
 
-        static get is() {
-          return "demo-element"
-        }
+      static get is() {
+        return "demo-element"
+      }
 
-        static get properties() {
-          return {
-          }
-        }
-
-        ready() {
-          super.ready()
-
-        }
-
-        _timeout(delayMillis) {
-          return Polymer.Async.timeOut.after(delayMillis)
+      static get properties() {
+        return {
         }
       }
 
-      window.customElements.define(DemoElement.is, DemoElement)
-    })
+      ready() {
+        super.ready()
+        this._log("ready")
+      }
+
+      connectedCallback() {
+        super.connectedCallback()
+        this._log("connected")
+
+        this.positionTarget = window
+        this.verticalAlign = "bottom"
+        this.horizontalAlign = "center"
+        this.position()
+        this.open()
+
+        this._log("data", this.__data)
+      }
+
+      _timeout(delayMillis) {
+        return Polymer.Async.timeOut.after(delayMillis)
+      }
+
+      _log(...messages) {
+        console.log(`[${this.localName}]`, ...messages)
+      }
+    }
+
+    window.customElements.define(DemoElement.is, DemoElement)
   </script>
 </dom-module>

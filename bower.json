@@ -17,6 +17,8 @@
   "devDependencies": {
     "font-roboto": "PolymerElements/font-roboto-local#^1.0.0",
     "iron-component-page": "PolymerElements/iron-component-page#^3.0.0",
+    "iron-fit-behavior": "PolymerElements/iron-fit-behavior#^2.0.0",
+    "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior#^2.0.0",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^2.0.0",
     "paper-button": "PolymerElements/paper-button#^2.0.0",
     "web-component-tester": "Polymer/web-component-tester#6.5.0",
