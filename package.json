@@ -1,6 +1,6 @@
 {
   "name": "oo-debug-helpers",
-  "description": "A dashboard that helps to debug Polymer applications.",
+  "description": "A dashboard that helps to debug our applications.",
   "version": "0.1.0",
   "author": "Benjamin Gudehus <benjamin.gudehus@canoo.com>",
   "repository": {
