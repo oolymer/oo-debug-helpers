@@ -13,6 +13,7 @@
 <link rel="import" href="../../paper-styles/paper-styles.html">
 <link rel="import" href="../../paper-styles/paper-styles-classes.html">
 
+<link rel="import" href="../../iron-a11y-keys/iron-a11y-keys.html">
 <link rel="import" href="../../iron-fit-behavior/iron-fit-behavior.html">
 <link rel="import" href="../../iron-overlay-behavior/iron-overlay-behavior.html">
 
@@ -50,13 +51,17 @@
         @apply --shadow-elevation-2dp;
         width: 66%;
         height: 33%;
-        opacity: 0.66;
+        transition: opacity ease-in 0.2s;
       }
 
       #content {
         padding: 20px;
+        opacity: 0;
       }
     </style>
+
+    <iron-a11y-keys id="a11y" target="[[keysTarget]]" keys="a"
+                on-keys-pressed="_onKey"></iron-a11y-keys>
 
     <div id="content">
       <p>content</p>
@@ -73,6 +78,10 @@
 
       static get properties() {
         return {
+          keysTarget: {
+            type: Object,
+            value: () => window
+          }
         }
       }
 
@@ -83,15 +92,19 @@
 
       connectedCallback() {
         super.connectedCallback()
-        this._log("connected")
+        this._log("connected", this.__data)
 
+        this.keysTarget = window
         this.positionTarget = window
         this.verticalAlign = "bottom"
         this.horizontalAlign = "center"
         this.position()
         this.open()
+      }
 
-        this._log("data", this.__data)
+      _onKey() {
+        this._log("toggle open")
+        this.toggle()
       }
 
       _timeout(delayMillis) {
