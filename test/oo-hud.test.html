@@ -1,0 +1,55 @@
+<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+<script src="../../web-component-tester/browser.js"></script>
+<script src="../../oo-test-helpers/mocha-extensions.js"></script>
+
+<link rel="import" href="../../iron-test-helpers/iron-test-helpers.html">
+<link rel="import" href="../../oo-test-helpers/oo-test-helpers.html">
+<link rel="import" href="../oo-hud.html">
+
+<test-fixture id="hudFixture">
+  <template>
+    <oo-hud></oo-hud>
+  </template>
+</test-fixture>
+
+<script>
+  suite("oo-hud", () => {
+    let element
+
+    setup(() => {
+      // given:
+      element = fixture("hudFixture")
+    })
+
+    test("dialog initially open", () => {
+      // expect:
+      expect(element.opened).to.eql(true)
+    })
+
+    test("dialog has tabs", done => {
+      // expect:
+      flush(() => {
+        expect(element.$.tabs.selected).to.eql(0)
+        expect(element.$.tabs.items).to.have.length(4)
+        done()
+      })
+    })
+
+    test("keys open dialog", () => {
+      // when:
+      MockInteractions.pressAndReleaseKeyOn(window, "1".charCodeAt(0))
+
+      // then:
+      expect(element.opened).to.eql(false)
+    })
+
+    test("keys select tabs", () => {
+      // when:
+      MockInteractions.pressAndReleaseKeyOn(window, "2".charCodeAt(0))
+
+      // then:
+      expect(element.$.tabs.selected).to.eql(1)
+    })
+
+  })
+</script>

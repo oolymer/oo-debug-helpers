@@ -3,6 +3,7 @@
 <title>demo</title>
 
 <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+<link rel="import" href="../../polymer/polymer-element.html">
 <link rel="import" href="../../shadycss/apply-shim.html">
 <link rel="import" href="../../polymer/lib/elements/custom-style.html">
 <link rel="import" href="../../polymer/lib/utils/async.html">
@@ -12,6 +13,8 @@
 <link rel="import" href="../../paper-styles/paper-styles.html">
 <link rel="import" href="../../paper-styles/paper-styles-classes.html">
 
+<link rel="import" href="../oo-hud.html">
+
 <body unresolved>
   <custom-style>
     <style>
@@ -19,6 +22,7 @@
         @apply --paper-font-common-base;
         background-color: var(--paper-grey-200);
         margin: 0;
+        overflow: hidden;
       }
 
       body {
@@ -34,50 +38,5 @@
     </style>
   </custom-style>
 
-  <demo-element></demo-element>
+  <oo-hud></oo-hud>
 </body>
-
-<dom-module id="demo-element">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-
-      #content {
-        margin: 20px;
-      }
-    </style>
-
-    <div id="content">
-      <p>demo element</p>
-    </div>
-  </template>
-
-  <script>
-    window.addEventListener("WebComponentsReady", () => {
-      class DemoElement extends Polymer.Element {
-
-        static get is() {
-          return "demo-element"
-        }
-
-        static get properties() {
-          return {
-          }
-        }
-
-        ready() {
-          super.ready()
-
-        }
-
-        _timeout(delayMillis) {
-          return Polymer.Async.timeOut.after(delayMillis)
-        }
-      }
-
-      window.customElements.define(DemoElement.is, DemoElement)
-    })
-  </script>
-</dom-module>

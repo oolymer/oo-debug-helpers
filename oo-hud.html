@@ -1,0 +1,168 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html">
+<link rel="import" href="../iron-fit-behavior/iron-fit-behavior.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-overlay-behavior/iron-overlay-behavior.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
+<link rel="import" href="../paper-styles/paper-styles-classes.html">
+<link rel="import" href="../paper-styles/paper-styles.html">
+<link rel="import" href="../paper-tabs/paper-tab.html">
+<link rel="import" href="../paper-tabs/paper-tabs.html">
+
+<dom-module id="oo-hud">
+  <template>
+    <style>
+      :host {
+        display: block;
+        background: white;
+        width: 66%;
+        height: 33%;
+        min-height: 400px;
+        opacity: 0.66;
+        transition: opacity ease-in 0.2s;
+        @apply --shadow-elevation-4dp;
+        overflow: hidden;
+      }
+
+      #content {
+        padding: 0;
+      }
+
+      #pages {
+        padding: 20px;
+      }
+
+      paper-tabs {
+        margin: 0 -16px;
+        --paper-tabs-selection-bar-color: var(--paper-light-blue-500);
+        border-bottom: 1px solid var(--divider-color, #000);
+      }
+
+      paper-tab {
+        --paper-tab-ink: var(--paper-light-blue-500);
+      }
+    </style>
+
+    <iron-a11y-keys
+      target="[[keysTarget]]"
+      keys="1"
+      data-tab="0"
+      on-keys-pressed="_keyToggleTab">
+    </iron-a11y-keys>
+
+    <iron-a11y-keys
+      target="[[keysTarget]]"
+      keys="2"
+      data-tab="1"
+      on-keys-pressed="_keyToggleTab">
+    </iron-a11y-keys>
+
+    <iron-a11y-keys
+      target="[[keysTarget]]"
+      keys="3"
+      data-tab="2"
+      on-keys-pressed="_keyToggleTab">
+    </iron-a11y-keys>
+
+    <iron-a11y-keys
+      target="[[keysTarget]]"
+      keys="4"
+      data-tab="3"
+      on-keys-pressed="_keyToggleTab">
+    </iron-a11y-keys>
+
+    <div id="content">
+      <paper-tabs id="tabs" selected="{{selectedPage}}" fit-container>
+        <paper-tab>app pages</paper-tab>
+        <paper-tab>data controllers</paper-tab>
+        <paper-tab>element loggers</paper-tab>
+        <paper-tab>worker queues</paper-tab>
+      </paper-tabs>
+
+      <iron-pages id="pages" selected="[[selectedPage]]">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+      </iron-pages>
+    </div>
+  </template>
+
+  <script>
+    class OoHud extends Polymer.mixinBehaviors(
+      [Polymer.IronOverlayBehavior], Polymer.Element) {
+
+      static get is() {
+        return "oo-hud"
+      }
+
+      static get properties() {
+        return {
+          selectedPage: {
+            type: Number,
+            value: () => 0
+          },
+
+          keysTarget: {
+            type: Object,
+            value: () => window
+          }
+        }
+      }
+
+      ready() {
+        super.ready()
+        this._log("ready")
+      }
+
+      connectedCallback() {
+        super.connectedCallback()
+        this._log("connected", this.__data)
+
+        this._initKeys()
+        this._positionPanel()
+        this._overlayPanel()
+      }
+
+      _initKeys() {
+        this.keysTarget = window
+      }
+
+      _positionPanel() {
+        this.positionTarget = window
+        this.verticalAlign = "bottom"
+        this.horizontalAlign = "center"
+        this.position()
+      }
+
+      _overlayPanel() {
+        this.noCancelOnOutsideClick = true
+        this.open()
+      }
+
+      _keyToggleTab(event) {
+        const tab = parseInt(event.currentTarget.getAttribute("data-tab"))
+        this._log("toggle tab:", tab)
+
+        if (this.selectedPage !== tab || !this.opened) {
+          this.$.tabs.select(tab)
+          this.open()
+        }
+        else {
+          this.close()
+        }
+      }
+
+      _timeout(delayMillis) {
+        return Polymer.Async.timeOut.after(delayMillis)
+      }
+
+      _log(...messages) {
+        console.log(`[${this.localName}]`, ...messages)
+      }
+    }
+
+    window.customElements.define(OoHud.is, OoHud)
+  </script>
+</dom-module>
