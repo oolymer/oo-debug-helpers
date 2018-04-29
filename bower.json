@@ -1,6 +1,6 @@
 {
   "name": "oo-debug-helpers",
-  "description": "A dashboard that helps to debug Polymer applications.",
+  "description": "A dashboard that helps to debug our applications.",
   "version": "0.1.0",
   "authors": [
     "Benjamin Gudehus <benjamin.gudehus@canoo.com>"
@@ -12,21 +12,29 @@
     }
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^2.6.0"
+    "polymer": "Polymer/polymer#^2.6.0",
+    "oo-logger": "oolymer/oo-logger#^0.2.0"
   },
   "devDependencies": {
     "font-roboto": "PolymerElements/font-roboto-local#^1.0.0",
     "iron-component-page": "PolymerElements/iron-component-page#^3.0.0",
     "iron-a11y-keys": "PolymerElements/iron-a11y-keys#^2.0.0",
     "iron-fit-behavior": "PolymerElements/iron-fit-behavior#^2.0.0",
+    "iron-icons": "PolymerElements/iron-icons#^2.0.0",
     "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior#^2.0.0",
     "iron-pages": "PolymerElements/iron-pages#^2.0.0",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^2.0.0",
+    "neon-animation": "PolymerElements/neon-animation#2.2.1",
     "paper-button": "PolymerElements/paper-button#^2.0.0",
+    "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0",
+    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^2.0.0",
+    "paper-item": "PolymerElements/paper-item#^2.0.0",
+    "paper-listbox": "PolymerElements/paper-listbox#^2.0.0",
     "paper-tabs": "PolymerElements/paper-tabs#^2.0.0",
     "oo-test-helpers": "oolymer/oo-test-helpers#^0.1.0",
+    "web-animations-js": "web-animations/web-animations-js#2.3.1",
     "web-component-tester": "Polymer/web-component-tester#6.5.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#1.1.0"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#1.2.0"
   },
   "resolutions": {
     "polymer": "2.6.0"

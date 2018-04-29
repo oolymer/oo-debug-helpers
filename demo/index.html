@@ -14,6 +14,7 @@
 <link rel="import" href="../../paper-styles/paper-styles-classes.html">
 
 <link rel="import" href="../oo-hud.html">
+<link rel="import" href="../../oo-logger/oo-logger-mixin.html">
 
 <body unresolved>
   <custom-style>
@@ -39,4 +40,28 @@
   </custom-style>
 
   <oo-hud></oo-hud>
+
+  <logger-one></logger-one>
+  <logger-two></logger-two>
 </body>
+
+<dom-module id="logger-one">
+  <script>
+    window.addEventListener("WebComponentsReady", () => {
+      class LoggerOne extends oo.LoggerMixin(Polymer.Element) {
+        static get is() {
+          return "logger-one"
+        }
+      }
+      window.customElements.define(LoggerOne.is, LoggerOne)
+
+      class LoggerTwo extends oo.LoggerMixin(Polymer.Element) {
+        static get is() {
+          return "logger-two"
+        }
+      }
+      window.customElements.define(LoggerTwo.is, LoggerTwo)
+    })
+  </script>
+</dom-module>
+

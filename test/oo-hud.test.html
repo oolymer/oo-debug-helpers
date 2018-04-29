@@ -29,7 +29,7 @@
     test("dialog has tabs", done => {
       // expect:
       flush(() => {
-        expect(element.$.tabs.selected).to.eql(0)
+        expect(element.$.tabs.selected).to.eql(2)
         expect(element.$.tabs.items).to.have.length(4)
         done()
       })
@@ -37,7 +37,7 @@
 
     test("keys open dialog", () => {
       // when:
-      MockInteractions.pressAndReleaseKeyOn(window, "1".charCodeAt(0))
+      MockInteractions.pressAndReleaseKeyOn(window, "3".charCodeAt(0))
 
       // then:
       expect(element.opened).to.eql(false)
