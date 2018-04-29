@@ -1,12 +1,19 @@
 <link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../neon-animation/web-animations.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../paper-styles/paper-styles-classes.html">
 <link rel="import" href="../paper-styles/paper-styles.html">
+<link rel="import" href="../oo-logger/oo-logger-mixin.html">
 
 <dom-module id="oo-hud-loggers">
   <template>
-    <style>
+    <style include="iron-flex iron-positioning">
       :host {
         display: block;
       }
@@ -14,37 +21,90 @@
       #content {
         background: white;
       }
+
+      .list {
+        width: 50%;
+        padding: 0 10px;
+      }
+
+      paper-checkbox {
+        padding: 8px 0;
+      }
+
+      paper-dropdown-menu {
+        padding: 0 15px;
+
+        --paper-dropdown-menu-input: {
+          padding: 6px 0;
+        }
+
+        --paper-input-container: {
+          padding: 0;
+        }
+      }
     </style>
 
-    <div id="content">
-      loggers
+    <div id="content" class="horizontal layout">
+      <div class="flex">loggers</div>
+
+      <div class="list">
+        <template is="dom-repeat" items="[[loggerNames]]" as="loggerName">
+          <div class="horizontal layout start">
+
+            <paper-checkbox checked>[[loggerName]]</paper-checkbox>
+
+            <paper-dropdown-menu
+              no-label-float
+              no-animations
+              horizontal-align="left"
+              vertical-align="middle"
+              class="flex">
+
+              <paper-listbox slot="dropdown-content" selected="2">
+                <paper-item>ERROR</paper-item>
+                <paper-item>WARN</paper-item>
+                <paper-item>INFO</paper-item>
+                <paper-item>DEBUG</paper-item>
+                <paper-item>TRACE</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+
+          </div>
+        </template>
+      </div>
     </div>
   </template>
 
   <script>
     class OoHudLoggers extends Polymer.Element {
-
       static get is() {
         return "oo-hud-loggers"
       }
 
       static get properties() {
         return {
+          loggerNames: {
+            type: String,
+            value: () => []
+          }
         }
       }
 
       ready() {
         super.ready()
         this._log("ready")
+
+        this.addEventListener("hud-item-enter", () => {
+          this._log("hud enter")
+          this._timeout(100, () => {
+            const loggers = oo.LoggerFactory.getLoggerContexts()
+            this.loggerNames = Object.keys(loggers)
+          })
+        })
       }
 
-      connectedCallback() {
-        super.connectedCallback()
-        this._log("connected", this.__data)
-      }
-
-      _timeout(delayMillis) {
-        return Polymer.Async.timeOut.after(delayMillis)
+      _timeout(delayMillis, action) {
+        return Polymer.Async.timeOut.after(delayMillis).run(action)
       }
 
       _log(...messages) {

@@ -21,7 +21,7 @@
         width: 80%;
         height: 33%;
         min-height: 400px;
-        opacity: 0.66;
+        opacity: 0.67;
         transition: opacity ease-in 0.2s;
         @apply --shadow-elevation-4dp;
         overflow: hidden;
@@ -121,6 +121,11 @@
       ready() {
         super.ready()
         this._log("ready")
+
+        this.$.pages.addEventListener("iron-select", event => {
+          const item = event.detail.item
+          item.dispatchEvent(new CustomEvent("hud-item-enter"))
+        })
       }
 
       connectedCallback() {
@@ -159,10 +164,6 @@
         else {
           this.close()
         }
-      }
-
-      _timeout(delayMillis) {
-        return Polymer.Async.timeOut.after(delayMillis)
       }
 
       _log(...messages) {
